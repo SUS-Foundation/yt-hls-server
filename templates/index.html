@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Video Processor{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>YouTube Video Processor</h1>
+    <p>Convert YouTube videos to multi-quality HLS streams</p>
+    
+    <form action="/process" method="get">
+        <input type="text" name="url" placeholder="YouTube URL" style="padding: 8px; width: 300px; margin-right: 10px;">
+        <button type="submit" class="btn">Process Video</button>
+    </form>
+</div>
+
+{% if videos %}
+<div class="card">
+    <h2>Available Videos</h2>
+    <div class="video-grid">
+        {% for video_id in videos %}
+        <div class="video-item">
+            <div class="video-preview">
+                <iframe 
+                    src="/player?video={{ video_id }}&embed=1" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <p>ID: {{ video_id }}</p>
+                <div class="button-group">
+                    <a href="/player?video={{ video_id }}" class="btn">Watch</a>
+                    <a href="/embed-demo?video={{ video_id }}" class="btn">Embed</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>Process Video</h2>
+    <form action="/process" method="get" id="processForm">
+        <input type="text" name="url" placeholder="YouTube URL" required>
+        <button type="submit" class="btn">Process</button>
+    </form>
+    <a href="/subscribe" class="btn">Subscribe to Channel</a>
+</div>
+
+<div class="card">
+    <h2>API Usage</h2>
+    <pre class="code-block">1. Process video:
+GET /process?url=YOUTUBE_URL
+
+2. Watch video:
+GET /player?video=VIDEO_ID
+
+3. Embed video:
+GET /player?video=VIDEO_ID&embed=1</pre>
+</div>
+{% endblock %} 

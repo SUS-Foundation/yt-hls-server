@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Video Player{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+{% endblock %}
+
+{% block additional_styles %}
+{% if embed %}
+body { background: transparent; }
+.container { padding: 0; }
+.video-container { margin: 0; }
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if not embed %}
+<div class="card">
+    <h3>Video ID: {{ video_id }}</h3>
+</div>
+{% endif %}
+<div class="video-container">
+    <video id="video" controls></video>
+</div>
+
+<script>
+    var video = document.getElementById('video');
+    var videoSrc = 'https://storage.googleapis.com/connecthack/{{ video_id }}/master.m3u8';
+    
+    if (Hls.isSupported()) {
+        var hls = new Hls({
+            xhrSetup: function(xhr) {
+                xhr.withCredentials = false; // Important for CORS
+            }
+        });
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        
+        hls.on(Hls.Events.ERROR, function(event, data) {
+            console.log('HLS error:', data);
+        });
+    }
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+    }
+</script>
+{% endblock %} 

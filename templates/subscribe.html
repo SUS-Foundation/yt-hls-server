@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Subscribe to Channel{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Subscribe to YouTube Channel</h1>
+    <p>Enter a YouTube channel URL or any video URL from the channel</p>
+    
+    <form action="/subscribe" method="post">
+        <input type="text" name="channel_url" placeholder="Channel or Video URL" required>
+        <button type="submit" class="btn">Subscribe</button>
+    </form>
+</div>
+{% endblock %} 

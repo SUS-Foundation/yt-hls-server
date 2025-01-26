@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Embed Demo{% endblock %}
+
+{% block content %}
+<h1>Video Player Embed Demo</h1>
+
+<div class="card">
+    <h2>Live Demo</h2>
+    <iframe 
+        src="/player?video={{ video_id }}&embed=1" 
+        width="640" 
+        height="360" 
+        frameborder="0" 
+        allowfullscreen>
+    </iframe>
+</div>
+
+<div class="card">
+    <h2>Embed Code</h2>
+    <p>To embed this player in your website, use the following HTML code:</p>
+    <pre class="code-block"><code>&lt;iframe 
+    src="http://your-server:5000/player?video={{ video_id }}&embed=1" 
+    width="640" 
+    height="360" 
+    frameborder="0" 
+    allowfullscreen&gt;
+&lt;/iframe&gt;</code></pre>
+</div>
+
+<div class="card">
+    <h2>Responsive Embed</h2>
+    <p>For a responsive embed that maintains aspect ratio:</p>
+    <pre class="code-block"><code>&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"&gt;
+    &lt;iframe 
+        src="http://your-server:5000/player?video={{ video_id }}&embed=1"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+        frameborder="0" 
+        allowfullscreen&gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+</div>
+{% endblock %} 
